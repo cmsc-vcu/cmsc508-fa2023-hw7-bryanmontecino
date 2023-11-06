@@ -49,9 +49,6 @@ Clone the Repository
 Database Setup
 * Set up your database using the provided DDL (Data Definition Language) script. Ensure you have a compatible database system installed and running.
 
-## Contributors
-- Bryan M
-
 ## Acknowledgments
 - Template made by John Leonard
 
