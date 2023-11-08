@@ -4,7 +4,7 @@ author: Bryan Lizama Montecino
 date: last-modified
 format:
     html:
-        theme: lux
+        theme: minty
         toc: true
         embed-resources: true
         code-copy: true
