@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Bryan Lizama Montecino">
-<meta name="dcterms.date" content="2023-11-06">
+<meta name="dcterms.date" content="2023-11-10">
 
 <title>Homework 7 - Creating a resume database</title>
 <style>
@@ -3363,7 +3363,7 @@ z-index: 1000;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 6, 2023</p>
+      <p class="date">November 10, 2023</p>
     </div>
   </div>
   
@@ -3377,7 +3377,33 @@ z-index: 1000;
 <p>GITHUB URL: <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-hw7-bryanmontecino" class="uri">https://github.com/cmsc-vcu/cmsc508-fa2023-hw7-bryanmontecino</a></p>
 <section id="overview-and-description" class="level2">
 <h2 class="anchored" data-anchor-id="overview-and-description">Overview and description</h2>
-<p>(briefly describe the project and the database)</p>
+<p>This database project is designed to manage and represent the collective skills, roles, and certifications of employees within a company. It aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation and talent management.</p>
+<ul>
+<li>The database consists of the following tables:</li>
+</ul>
+<dl>
+<dt>skills</dt>
+<dd>
+Stores different skills or certifications with details like name, description, and associated URLs.
+</dd>
+<dt>people</dt>
+<dd>
+Contains information about the company’s employees, including names, contact details, professional links, and a brief bio.
+</dd>
+<dt>peopleskills</dt>
+<dd>
+A junction table linking employees to their respective skills, along with the dates these skills were acquired.
+</dd>
+<dt>roles</dt>
+<dd>
+Lists various roles within the company, such as Designer, Developer, etc., along with a sort priority for organizational purposes.
+</dd>
+<dt>peopleroles</dt>
+<dd>
+Associates employees with their roles in the company and tracks the date when these roles were assigned.
+</dd>
+</dl>
+<p>This structure allows for versatile queries, enabling the company to easily find employees with specific skills, identify skill gaps in certain roles, and effectively manage the workforce.</p>
 </section>
 <section id="crows-foot-diagram" class="level2">
 <h2 class="anchored" data-anchor-id="crows-foot-diagram">Crows-foot diagram</h2>
@@ -3387,15 +3413,50 @@ z-index: 1000;
 <div>
 <div>
 <pre class="mermaid mermaid-js">erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
-    CUSTOMER{
-        int id
+    PEOPLE ||--o{ PEOPLESKILLS : has
+    PEOPLE ||--o{ PEOPLESROLES : performs
+    PEOPLESKILLS }o--|| SKILLS : acquired_by
+    ROLES ||--o{ PEOPLESROLES : assigned_to
+
+    PEOPLE {
+        int id &quot;Primary Key&quot;
         string first_name
         string last_name
+        string email
+        string linkedin_url
+        string headshot_url
+        string discord_handle
+        string brief_bio
+        date date_joined
     }
-    DELIVERY-ADDRESS {
-        int id
+
+    SKILLS {
+        int id &quot;Primary Key&quot;
+        string name
+        string description
+        string tag
+        string url
+        string time_commitment
+    }
+
+    PEOPLESKILLS {
+        int id &quot;Primary Key&quot;
+        int skills_id &quot;Foreign Key to SKILLS&quot;
+        int people_id &quot;Foreign Key to PEOPLE&quot;
+        date date_acquired
+    }
+
+    ROLES {
+        int id &quot;Primary Key&quot;
+        string name
+        int sort_priority
+    }
+
+    PEOPLESROLES {
+        int id &quot;Primary Key&quot;
+        int people_id &quot;Foreign Key to PEOPLE&quot;
+        int role_id &quot;Foreign Key to ROLES&quot;
+        date date_assigned
     }
 </pre>
 </div>
@@ -3408,20 +3469,20 @@ z-index: 1000;
 <p>For the people, skills, and roles tables, provide a description of each table and it’s contents. Then provide a listing of the entire table.</p>
 <section id="people-table" class="level3">
 <h3 class="anchored" data-anchor-id="people-table">People table</h3>
-<p>The <em>people</em> table contains elements that describe …</p>
+<p>The <em>people</em> table is a crucial part of the database, containing detailed information about each employee within the company</p>
+<p>It includes various fields to describe personal and professional attributes of the employees. The key elements in this table are:</p>
+<ul>
+<li>id: A unique identifier for each employee.</li>
+<li>first_name and last_name: The first and last names of the employee.</li>
+<li>email: The email address of the employee.</li>
+<li>linkedin_url: A URL linking to the employee’s LinkedIn profile.</li>
+<li>headshot_url: A URL to a headshot image of the employee.</li>
+<li>discord_handle: The employee’s Discord username or handle.</li>
+<li>brief_bio: A short biography or description of the employee.</li>
+<li>date_joined: The date when the employee joined the company.</li>
+</ul>
 <p>Below is a list of data in the <em>people</em> table.</p>
 <div class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>An error occurred:
-
-(pymysql.err.ProgrammingError) (1146, &quot;Table &#39;23FA_hr_lizamamobj.people&#39; doesn&#39;t exist&quot;)
-[SQL: 
-select * from people;
-]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-
-Ignoring and moving on.</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -3430,9 +3491,138 @@ Ignoring and moving on.</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">first_name</th>
+<th data-quarto-table-cell-role="th">last_name</th>
+<th data-quarto-table-cell-role="th">email</th>
+<th data-quarto-table-cell-role="th">linkedin_url</th>
+<th data-quarto-table-cell-role="th">headshot_url</th>
+<th data-quarto-table-cell-role="th">discord_handle</th>
+<th data-quarto-table-cell-role="th">brief_bio</th>
+<th data-quarto-table-cell-role="th">date_joined</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>John</td>
+<td>Person 1</td>
+<td>john1@email.com</td>
+<td>https://linkedin.com/john1</td>
+<td>http://headshot.url/john1</td>
+<td>john_discord1</td>
+<td>Bio of John</td>
+<td>2020-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Emily</td>
+<td>Person 2</td>
+<td>emily2@email.com</td>
+<td>https://linkedin.com/emily2</td>
+<td>http://headshot.url/emily2</td>
+<td>emily_discord2</td>
+<td>Bio of Emily</td>
+<td>2020-02-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>Mike</td>
+<td>Person 3</td>
+<td>mike3@email.com</td>
+<td>https://linkedin.com/mike3</td>
+<td>http://headshot.url/mike3</td>
+<td>mike_discord3</td>
+<td>Bio of Mike</td>
+<td>2020-03-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>Sarah</td>
+<td>Person 4</td>
+<td>sarah4@email.com</td>
+<td>https://linkedin.com/sarah4</td>
+<td>http://headshot.url/sarah4</td>
+<td>sarah_discord4</td>
+<td>Bio of Sarah</td>
+<td>2020-04-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>Daniel</td>
+<td>Person 5</td>
+<td>daniel5@email.com</td>
+<td>https://linkedin.com/daniel5</td>
+<td>http://headshot.url/daniel5</td>
+<td>daniel_discord5</td>
+<td>Bio of Daniel</td>
+<td>2020-05-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>Laura</td>
+<td>Person 6</td>
+<td>laura6@email.com</td>
+<td>https://linkedin.com/laura6</td>
+<td>http://headshot.url/laura6</td>
+<td>laura_discord6</td>
+<td>Bio of Laura</td>
+<td>2020-06-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>Alex</td>
+<td>Person 7</td>
+<td>alex7@email.com</td>
+<td>https://linkedin.com/alex7</td>
+<td>http://headshot.url/alex7</td>
+<td>alex_discord7</td>
+<td>Bio of Alex</td>
+<td>2020-07-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>Sophia</td>
+<td>Person 8</td>
+<td>sophia8@email.com</td>
+<td>https://linkedin.com/sophia8</td>
+<td>http://headshot.url/sophia8</td>
+<td>sophia_discord8</td>
+<td>Bio of Sophia</td>
+<td>2020-08-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+<td>Brian</td>
+<td>Person 9</td>
+<td>brian9@email.com</td>
+<td>https://linkedin.com/brian9</td>
+<td>http://headshot.url/brian9</td>
+<td>brian_discord9</td>
+<td>Bio of Brian</td>
+<td>2020-09-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+<td>Zoe</td>
+<td>Person 10</td>
+<td>zoe10@email.com</td>
+<td>https://linkedin.com/zoe10</td>
+<td>http://headshot.url/zoe10</td>
+<td>zoe_discord10</td>
+<td>Bio of Zoe</td>
+<td>2020-10-01</td>
+</tr>
 </tbody>
 </table>
 
@@ -3442,13 +3632,180 @@ Ignoring and moving on.</code></pre>
 </section>
 <section id="skills-table" class="level3">
 <h3 class="anchored" data-anchor-id="skills-table">Skills table</h3>
-<p>The <em>skills</em> table contains elements that describe …</p>
+<p>The <em>skills</em> table is an integral component of the database, cataloging various skills and certifications that can be possessed by employees.</p>
+<p>This table is pivotal for tracking and managing the skillset within the organization. It includes fields that provide detailed information about each skill or certification. The key elements in this table are:</p>
+<ul>
+<li>id: A unique identifier for each skill or certification.</li>
+<li>name: The name of the skill or certification.</li>
+<li>description: A brief description of the skill or certification, explaining its nature and scope.</li>
+<li>tag: A category tag that groups the skill into a broader classification.</li>
+<li>url: A URL pointing to resources or additional information about the skill.</li>
+<li>time_commitment: An estimated time commitment required to acquire or master the skill.</li>
+</ul>
 <p>Below is a list of data in the <em>skills</em> table.</p>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">tag</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">time_commitment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>Python Programming</td>
+<td>Mastering Python for data analysis and web dev...</td>
+<td>Skill 1</td>
+<td>https://python.org</td>
+<td>6 months</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Digital Marketing</td>
+<td>Developing strategies for online marketing and...</td>
+<td>Skill 2</td>
+<td>https://digitalmarketing.com</td>
+<td>3 months</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>Graphic Design</td>
+<td>Creating visual content to communicate messages</td>
+<td>Skill 3</td>
+<td>https://designschool.com</td>
+<td>4 months</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>Project Management</td>
+<td>Planning, executing, and closing projects effe...</td>
+<td>Skill 4</td>
+<td>https://projectmanagement.com</td>
+<td>5 months</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>Machine Learning</td>
+<td>Applying algorithms and statistical models for...</td>
+<td>Skill 5</td>
+<td>https://machinelearning.org</td>
+<td>8 months</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>3D Modeling</td>
+<td>Building digital three-dimensional models of o...</td>
+<td>Skill 6</td>
+<td>https://3dmodeling.com</td>
+<td>7 months</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>Cybersecurity</td>
+<td>Protecting systems, networks, and programs fro...</td>
+<td>Skill 7</td>
+<td>https://cybersecurity.com</td>
+<td>9 months</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>Mobile App Development</td>
+<td>Creating software applications for mobile devices</td>
+<td>Skill 8</td>
+<td>https://appdevelopment.com</td>
+<td>6 months</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
 <section id="roles-table" class="level3">
 <h3 class="anchored" data-anchor-id="roles-table">Roles table</h3>
-<p>The <em>roles</em> table contains elements that describe …</p>
+<p>The <em>roles</em> table is a key part of the database, designed to define and organize the various job roles within the company. It plays a crucial role in structuring the company’s hierarchy and understanding the distribution of responsibilities. This table includes:</p>
+<ul>
+<li>id: A unique identifier for each role within the company.</li>
+<li>name: The name of the role, such as Developer, Designer, Team Lead, etc.</li>
+<li>sort_priority: An integer representing the hierarchical or sorting priority of the role, which can be used to organize roles in a specific order.</li>
+</ul>
 <p>Below is a list of data in the <em>roles</em> table.</p>
+<div class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">sort_priority</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>Designer</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Developer</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>Recruit</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>Team Lead</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>Boss</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>Mentor</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="sample-queries" class="level2">
@@ -3459,23 +3816,12 @@ Ignoring and moving on.</code></pre>
 <h1>List skill names, tags, and descriptions ordered by name</h1>
 <p>(here a sample query)</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sql <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ss">select * from people</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sql <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ss">select * from people</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(and here is a sample result from the query)</p>
 <div class="cell" data-execution_count="9">
-<div class="cell-output cell-output-stdout">
-<pre><code>An error occurred:
-
-(pymysql.err.ProgrammingError) (1146, &quot;Table &#39;23FA_hr_lizamamobj.people&#39; doesn&#39;t exist&quot;)
-[SQL: 
-select * from people
-]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-
-Ignoring and moving on.</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
@@ -3484,9 +3830,214 @@ Ignoring and moving on.</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">first_name</th>
+<th data-quarto-table-cell-role="th">last_name</th>
+<th data-quarto-table-cell-role="th">email</th>
+<th data-quarto-table-cell-role="th">linkedin_url</th>
+<th data-quarto-table-cell-role="th">headshot_url</th>
+<th data-quarto-table-cell-role="th">discord_handle</th>
+<th data-quarto-table-cell-role="th">brief_bio</th>
+<th data-quarto-table-cell-role="th">date_joined</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>John</td>
+<td>Person 1</td>
+<td>john1@email.com</td>
+<td>https://linkedin.com/john1</td>
+<td>http://headshot.url/john1</td>
+<td>john_discord1</td>
+<td>Bio of John</td>
+<td>2020-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Emily</td>
+<td>Person 2</td>
+<td>emily2@email.com</td>
+<td>https://linkedin.com/emily2</td>
+<td>http://headshot.url/emily2</td>
+<td>emily_discord2</td>
+<td>Bio of Emily</td>
+<td>2020-02-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>Mike</td>
+<td>Person 3</td>
+<td>mike3@email.com</td>
+<td>https://linkedin.com/mike3</td>
+<td>http://headshot.url/mike3</td>
+<td>mike_discord3</td>
+<td>Bio of Mike</td>
+<td>2020-03-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>Sarah</td>
+<td>Person 4</td>
+<td>sarah4@email.com</td>
+<td>https://linkedin.com/sarah4</td>
+<td>http://headshot.url/sarah4</td>
+<td>sarah_discord4</td>
+<td>Bio of Sarah</td>
+<td>2020-04-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>Daniel</td>
+<td>Person 5</td>
+<td>daniel5@email.com</td>
+<td>https://linkedin.com/daniel5</td>
+<td>http://headshot.url/daniel5</td>
+<td>daniel_discord5</td>
+<td>Bio of Daniel</td>
+<td>2020-05-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>Laura</td>
+<td>Person 6</td>
+<td>laura6@email.com</td>
+<td>https://linkedin.com/laura6</td>
+<td>http://headshot.url/laura6</td>
+<td>laura_discord6</td>
+<td>Bio of Laura</td>
+<td>2020-06-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>Alex</td>
+<td>Person 7</td>
+<td>alex7@email.com</td>
+<td>https://linkedin.com/alex7</td>
+<td>http://headshot.url/alex7</td>
+<td>alex_discord7</td>
+<td>Bio of Alex</td>
+<td>2020-07-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>Sophia</td>
+<td>Person 8</td>
+<td>sophia8@email.com</td>
+<td>https://linkedin.com/sophia8</td>
+<td>http://headshot.url/sophia8</td>
+<td>sophia_discord8</td>
+<td>Bio of Sophia</td>
+<td>2020-08-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+<td>Brian</td>
+<td>Person 9</td>
+<td>brian9@email.com</td>
+<td>https://linkedin.com/brian9</td>
+<td>http://headshot.url/brian9</td>
+<td>brian_discord9</td>
+<td>Bio of Brian</td>
+<td>2020-09-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+<td>Zoe</td>
+<td>Person 10</td>
+<td>zoe10@email.com</td>
+<td>https://linkedin.com/zoe10</td>
+<td>http://headshot.url/zoe10</td>
+<td>zoe_discord10</td>
+<td>Bio of Zoe</td>
+<td>2020-10-01</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Query:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sql <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ss">SELECT name, tag, description FROM skills ORDER BY name;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Result:</p>
+<div class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">tag</th>
+<th data-quarto-table-cell-role="th">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>3D Modeling</td>
+<td>Skill 6</td>
+<td>Building digital three-dimensional models of o...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Cybersecurity</td>
+<td>Skill 7</td>
+<td>Protecting systems, networks, and programs fro...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Digital Marketing</td>
+<td>Skill 2</td>
+<td>Developing strategies for online marketing and...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Graphic Design</td>
+<td>Skill 3</td>
+<td>Creating visual content to communicate messages</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Machine Learning</td>
+<td>Skill 5</td>
+<td>Applying algorithms and statistical models for...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Mobile App Development</td>
+<td>Skill 8</td>
+<td>Creating software applications for mobile devices</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Project Management</td>
+<td>Skill 4</td>
+<td>Planning, executing, and closing projects effe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Python Programming</td>
+<td>Skill 1</td>
+<td>Mastering Python for data analysis and web dev...</td>
+</tr>
 </tbody>
 </table>
 

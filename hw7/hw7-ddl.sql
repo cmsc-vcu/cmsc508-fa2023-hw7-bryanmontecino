@@ -181,6 +181,7 @@ INSERT INTO roles (id, name, sort_priority) VALUES
 # Create peopleroles( id, people_id, role_id, date_assigned )
 # None of the fields can be null.  ID can be auto_increment
 
+DROP TABLE IF EXISTS peopleroles;
 CREATE TABLE peopleroles (
     id INT AUTO_INCREMENT,
     people_id INT NOT NULL,
