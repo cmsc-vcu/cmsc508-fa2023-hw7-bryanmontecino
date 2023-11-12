@@ -269,7 +269,7 @@ Let's explore the database!
 
 # List skill names, tags, and descriptions ordered by name
 
-(here a sample query)
+Sample:
 
 ```{python}
 sql = f"""
@@ -277,7 +277,7 @@ SELECT * FROM people
 """
 ```
 
-(and here is a sample result from the query)
+Result:
 
 ```{python}
 #| echo: false
