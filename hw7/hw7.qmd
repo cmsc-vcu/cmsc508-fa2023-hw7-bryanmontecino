@@ -1,7 +1,7 @@
 ---
 title: Homework 7 - Creating a resume database
 author: Bryan Lizama Montecino
-date: last-modified
+date: November 10, 2023
 format:
     html:
         theme: minty
@@ -74,7 +74,7 @@ except Exception as e:
 #| echo: false
 #| eval: true
 
-# Do a quick test of the connection and trap the errors better!
+# !
 try:
     databases = pd.read_sql("show databases",cnx)
 except ImportError as e:
@@ -97,7 +97,6 @@ except Exception as e:
 (add a description of the diagram and what the reader is seeing.)
 
 ```{mermaid}
-%%| echo: false
 erDiagram
     CUSTOMER ||--o{ ORDER : places
     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
