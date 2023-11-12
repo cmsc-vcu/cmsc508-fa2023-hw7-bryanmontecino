@@ -1,4 +1,7 @@
 # hw7-ddl.sql
+# Bryan Lizama Montecino
+
+HW 7 - Creating Database
 
 ## DO NOT RENAME OR OTHERWISE CHANGE THE SECTION TITLES OR ORDER.
 ## The autograder will look for specific code sections. If it can't find them, you'll get a "0"
@@ -30,9 +33,7 @@ SET FOREIGN_KEY_CHECKS=1;
 # ID, name, description and tag cannot be NULL. Other fields can default to NULL.
 # tag is a skill category grouping.  You can assign it based on your skill descriptions.
 # time committment offers some sense of how much time was required (or will be required) to gain the skill.
-# You can assign the skill descriptions.  Please be creative!
 
-DROP TABLE IF EXISTS skills;
 CREATE TABLE skills (
     id int NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -49,21 +50,20 @@ CREATE TABLE skills (
 # You can assign skill names.  Please be creative!
 
 INSERT INTO skills (id, name, description, tag, url, time_commitment) VALUES
-    (1, 'Python Programming', 'Mastering Python for data analysis and web development', 'Skill 1', 'https://python.org', '6 months'),
-    (2, 'Digital Marketing', 'Developing strategies for online marketing and SEO', 'Skill 2', 'https://digitalmarketing.com', '3 months'),
-    (3, 'Graphic Design', 'Creating visual content to communicate messages', 'Skill 3', 'https://designschool.com', '4 months'),
-    (4, 'Project Management', 'Planning, executing, and closing projects effectively', 'Skill 4', 'https://projectmanagement.com', '5 months'),
-    (5, 'Machine Learning', 'Applying algorithms and statistical models for data analysis', 'Skill 5', 'https://machinelearning.org', '8 months'),
-    (6, '3D Modeling', 'Building digital three-dimensional models of objects', 'Skill 6', 'https://3dmodeling.com', '7 months'),
-    (7, 'Cybersecurity', 'Protecting systems, networks, and programs from digital attacks', 'Skill 7', 'https://cybersecurity.com', '9 months'),
-    (8, 'Mobile App Development', 'Creating software applications for mobile devices', 'Skill 8', 'https://appdevelopment.com', '6 months');
+(1, 'Python Programming', 'Mastering Python for data analysis and web development', 'Skill 1', 'https://python.org', '6 months'),
+(2, 'Digital Marketing', 'Developing strategies for online marketing and SEO', 'Skill 2', 'https://digitalmarketing.com', '3 months'),
+(3, 'Graphic Design', 'Creating visual content to communicate messages', 'Skill 3', 'https://designschool.com', '4 months'),
+(4, 'Project Management', 'Planning, executing, and closing projects effectively', 'Skill 4', 'https://projectmanagement.com', '5 months'),
+(5, 'Machine Learning', 'Applying algorithms and statistical models for data analysis', 'Skill 5', 'https://machinelearning.org', '8 months'),
+(6, '3D Modeling', 'Building digital three-dimensional models of objects', 'Skill 6', 'https://3dmodeling.com', '7 months'),
+(7, 'Cybersecurity', 'Protecting systems, networks, and programs from digital attacks', 'Skill 7', 'https://cybersecurity.com', '9 months'),
+(8, 'Mobile App Development', 'Creating software applications for mobile devices', 'Skill 8', 'https://appdevelopment.com', '6 months');
 
 # Section 4
 # Create people( id,first_name, last_name, email, linkedin_url, headshot_url, discord_handle, brief_bio, date_joined)
 # ID cannot be null, Last name cannot be null, date joined cannot be NULL.
 # All other fields can default to NULL.
 
-DROP TABLE IF EXISTS people;
 CREATE TABLE people (
     id int NOT NULL,
     first_name VARCHAR(255) DEFAULT NULL,
@@ -83,22 +83,21 @@ CREATE TABLE people (
 # Other fields are for you to assign.
 
 INSERT INTO people (id, first_name, last_name, email, linkedin_url, headshot_url, discord_handle, brief_bio, date_joined) VALUES
-    (1, 'John', 'Person 1', 'john1@email.com', 'https://linkedin.com/john1', 'http://headshot.url/john1', 'john_discord1', 'Bio of John', '2020-01-01'),
-    (2, 'Emily', 'Person 2', 'emily2@email.com', 'https://linkedin.com/emily2', 'http://headshot.url/emily2', 'emily_discord2', 'Bio of Emily', '2020-02-01'),
-    (3, 'Mike', 'Person 3', 'mike3@email.com', 'https://linkedin.com/mike3', 'http://headshot.url/mike3', 'mike_discord3', 'Bio of Mike', '2020-03-01'),
-    (4, 'Sarah', 'Person 4', 'sarah4@email.com', 'https://linkedin.com/sarah4', 'http://headshot.url/sarah4', 'sarah_discord4', 'Bio of Sarah', '2020-04-01'),
-    (5, 'Daniel', 'Person 5', 'daniel5@email.com', 'https://linkedin.com/daniel5', 'http://headshot.url/daniel5', 'daniel_discord5', 'Bio of Daniel', '2020-05-01'),
-    (6, 'Laura', 'Person 6', 'laura6@email.com', 'https://linkedin.com/laura6', 'http://headshot.url/laura6', 'laura_discord6', 'Bio of Laura', '2020-06-01'),
-    (7, 'Alex', 'Person 7', 'alex7@email.com', 'https://linkedin.com/alex7', 'http://headshot.url/alex7', 'alex_discord7', 'Bio of Alex', '2020-07-01'),
-    (8, 'Sophia', 'Person 8', 'sophia8@email.com', 'https://linkedin.com/sophia8', 'http://headshot.url/sophia8', 'sophia_discord8', 'Bio of Sophia', '2020-08-01'),
-    (9, 'Brian', 'Person 9', 'brian9@email.com', 'https://linkedin.com/brian9', 'http://headshot.url/brian9', 'brian_discord9', 'Bio of Brian', '2020-09-01'),
-    (10, 'Zoe', 'Person 10', 'zoe10@email.com', 'https://linkedin.com/zoe10', 'http://headshot.url/zoe10', 'zoe_discord10', 'Bio of Zoe', '2020-10-01');
+(1, 'John', 'Person 1', 'john1@email.com', 'https://linkedin.com/john1', 'http://headshot.url/john1', 'john_discord1', 'Bio of John', '2020-01-01'),
+(2, 'Emily', 'Person 2', 'emily2@email.com', 'https://linkedin.com/emily2', 'http://headshot.url/emily2', 'emily_discord2', 'Bio of Emily', '2020-02-01'),
+(3, 'Mike', 'Person 3', 'mike3@email.com', 'https://linkedin.com/mike3', 'http://headshot.url/mike3', 'mike_discord3', 'Bio of Mike', '2020-03-01'),
+(4, 'Sarah', 'Person 4', 'sarah4@email.com', 'https://linkedin.com/sarah4', 'http://headshot.url/sarah4', 'sarah_discord4', 'Bio of Sarah', '2020-04-01'),
+(5, 'Daniel', 'Person 5', 'daniel5@email.com', 'https://linkedin.com/daniel5', 'http://headshot.url/daniel5', 'daniel_discord5', 'Bio of Daniel', '2020-05-01'),
+(6, 'Laura', 'Person 6', 'laura6@email.com', 'https://linkedin.com/laura6', 'http://headshot.url/laura6', 'laura_discord6', 'Bio of Laura', '2020-06-01'),
+(7, 'Alex', 'Person 7', 'alex7@email.com', 'https://linkedin.com/alex7', 'http://headshot.url/alex7', 'alex_discord7', 'Bio of Alex', '2020-07-01'),
+(8, 'Sophia', 'Person 8', 'sophia8@email.com', 'https://linkedin.com/sophia8', 'http://headshot.url/sophia8', 'sophia_discord8', 'Bio of Sophia', '2020-08-01'),
+(9, 'Brian', 'Person 9', 'brian9@email.com', 'https://linkedin.com/brian9', 'http://headshot.url/brian9', 'brian_discord9', 'Bio of Brian', '2020-09-01'),
+(10, 'Zoe', 'Person 10', 'zoe10@email.com', 'https://linkedin.com/zoe10', 'http://headshot.url/zoe10', 'zoe_discord10', 'Bio of Zoe', '2020-10-01');
 
 # Section 6
 # Create peopleskills( id, skills_id, people_id, date_acquired )
 # None of the fields can ba NULL. ID can be auto_increment.
 
-DROP TABLE IF EXISTS peopleskills;
 CREATE TABLE peopleskills (
     id INT AUTO_INCREMENT,
     skills_id INT NOT NULL,
@@ -156,7 +155,6 @@ INSERT INTO peopleskills (people_id, skills_id, date_acquired) VALUES
 # Create roles( id, name, sort_priority )
 # sort_priority is an integer and is used to provide an order for sorting roles
 
-DROP TABLE IF EXISTS roles;
 CREATE TABLE roles (
     id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -181,7 +179,6 @@ INSERT INTO roles (id, name, sort_priority) VALUES
 # Create peopleroles( id, people_id, role_id, date_assigned )
 # None of the fields can be null.  ID can be auto_increment
 
-DROP TABLE IF EXISTS peopleroles;
 CREATE TABLE peopleroles (
     id INT AUTO_INCREMENT,
     people_id INT NOT NULL,

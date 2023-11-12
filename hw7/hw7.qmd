@@ -114,7 +114,7 @@ peopleroles
 
 ## Crows-foot diagram
 
-(add a description of the diagram and what the reader is seeing.)
+Description of Crows-foot Diagram.
 
 ```{mermaid}
 erDiagram
