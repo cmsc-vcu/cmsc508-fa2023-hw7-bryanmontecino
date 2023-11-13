@@ -3379,7 +3379,7 @@ z-index: 1000;
 <h2 class="anchored" data-anchor-id="overview-and-description">Overview and description</h2>
 <p>The database project is designed to manage and represent the collective skills and roles of employees within a company.</p>
 <ul>
-<li>It aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation and talent management.</li>
+<li>Aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation.</li>
 <li>The database consists of the following tables:</li>
 </ul>
 <dl>
@@ -3472,18 +3472,18 @@ Associates employees with their roles in the company and tracks the date when th
 <p>The <em>people</em> table is a crucial part of the database, containing detailed information about each employee within the company</p>
 <p>It includes various fields to describe personal and professional attributes of the employees. The key elements in this table are:</p>
 <ul>
-<li>id: A unique identifier for each employee.</li>
-<li>first_name and last_name: The first and last names of the employee.</li>
-<li>email: The email address of the employee.</li>
-<li>linkedin_url: A URL linking to the employee’s LinkedIn profile.</li>
-<li>headshot_url: A URL to a headshot image of the employee.</li>
-<li>discord_handle: The employee’s Discord username or handle.</li>
-<li>brief_bio: A short biography or description of the employee.</li>
-<li>date_joined: The date when the employee joined the company.</li>
+<li>id: identifier for each employee.</li>
+<li>first_name and last_name: first and last names of the employee.</li>
+<li>email: email address of the employee.</li>
+<li>linkedin_url: URL linking to the employee’s LinkedIn profile.</li>
+<li>headshot_url: URL to a headshot image of the employee.</li>
+<li>discord_handle: employee’s Discord username or handle.</li>
+<li>brief_bio: short description of the employee.</li>
+<li>date_joined: date when the employee joined the company.</li>
 </ul>
 <p>Below is a list of data in the <em>people</em> table.</p>
 <div class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -3635,16 +3635,16 @@ Associates employees with their roles in the company and tracks the date when th
 <p>The <em>skills</em> table is an integral component of the database, cataloging various skills and certifications that can be possessed by employees.</p>
 <p>This table is pivotal for tracking and managing the skillset within the organization. It includes fields that provide detailed information about each skill or certification. The key elements in this table are:</p>
 <ul>
-<li>id: A unique identifier for each skill or certification.</li>
-<li>name: The name of the skill or certification.</li>
-<li>description: A brief description of the skill or certification, explaining its nature and scope.</li>
-<li>tag: A category tag that groups the skill into a broader classification.</li>
-<li>url: A URL pointing to resources or additional information about the skill.</li>
-<li>time_commitment: An estimated time commitment required to acquire or master the skill.</li>
+<li>id: unique identifier for each skill.</li>
+<li>name: name of the skill.</li>
+<li>description: brief description of the skill or certification, explaining its nature and scope.</li>
+<li>tag: category tag that labels and classifies each skill.</li>
+<li>url: URL pointing to resources about the skill.</li>
+<li>time_commitment: estimated time commitment required to acquire/master the skill.</li>
 </ul>
 <p>Below is a list of data in the <em>skills</em> table.</p>
 <div class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -3744,13 +3744,13 @@ Associates employees with their roles in the company and tracks the date when th
 <h3 class="anchored" data-anchor-id="roles-table">Roles table</h3>
 <p>The <em>roles</em> table is a key part of the database, designed to define and organize the various job roles within the company. It plays a crucial role in structuring the company’s hierarchy and understanding the distribution of responsibilities. This table includes:</p>
 <ul>
-<li>id: A unique identifier for each role within the company.</li>
-<li>name: The name of the role, such as Developer, Designer, Team Lead, etc.</li>
-<li>sort_priority: An integer representing the hierarchical or sorting priority of the role, which can be used to organize roles in a specific order.</li>
+<li>id: unique identifier for each role within the company.</li>
+<li>name: name of the role, such as Developer, Designer, Team Lead, etc.</li>
+<li>sort_priority: integer representing sorting priority of the role, which can be used to organize roles in a specific order.</li>
 </ul>
 <p>Below is a list of data in the <em>roles</em> table.</p>
 <div class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -3819,7 +3819,7 @@ Associates employees with their roles in the company and tracks the date when th
 </div>
 <p>Result:</p>
 <div class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -3969,7 +3969,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-skill-names-tags-and-descriptions-ordered-by-name" class="level1">
 <h1>List skill names, tags, and descriptions ordered by name</h1>
 <div class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -4040,7 +4040,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-people-names-and-email-addresses-ordered-by-last_name" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-and-email-addresses-ordered-by-last_name">List people names and email addresses ordered by last_name</h3>
 <div class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -4124,7 +4124,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-skill-names-of-person-1" class="level3">
 <h3 class="anchored" data-anchor-id="list-skill-names-of-person-1">List skill names of Person 1</h3>
 <div class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -4158,7 +4158,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-people-names-with-skill-6" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-with-skill-6">List people names with Skill 6</h3>
 <div class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -4206,7 +4206,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-people-with-a-developer-role" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-with-a-developer-role">List people with a DEVELOPER role</h3>
 <div class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display" data-execution_count="52">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -4254,7 +4254,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-names-and-email-addresses-of-people-without-skills" class="level3">
 <h3 class="anchored" data-anchor-id="list-names-and-email-addresses-of-people-without-skills">List names and email addresses of people without skills</h3>
 <div class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display" data-execution_count="53">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -4284,7 +4284,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-names-and-tags-of-unused-skills" class="level3">
 <h3 class="anchored" data-anchor-id="list-names-and-tags-of-unused-skills">List names and tags of unused skills</h3>
 <div class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -4317,7 +4317,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-people-names-and-skill-names-with-the-boss-role" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-and-skill-names-with-the-boss-role">List people names and skill names with the BOSS role</h3>
 <div class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -4359,7 +4359,7 @@ Associates employees with their roles in the company and tracks the date when th
 <section id="list-ids-and-names-of-unused-roles" class="level3">
 <h3 class="anchored" data-anchor-id="list-ids-and-names-of-unused-roles">List ids and names of unused roles</h3>
 <div class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display" data-execution_count="56">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 
 
@@ -4381,7 +4381,7 @@ Associates employees with their roles in the company and tracks the date when th
 </section>
 <section id="reflection" class="level2">
 <h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
-<p>(Write a paragraph expressing your thoughts, feelings, and insights about your experience with this assignment. Pause and breath before writing - I’m trying to encourage critical thinking and self-awareness while allowing you to explore the connections between theory and practice. And yes, delete this paragraph.)</p>
+<p>The past assignments we have done have been interesting and thought provoking, but this one is the one that I learned the most from. Once I created tables with the DDL file, it was amazing when I visited the phpMyAdmin website and I saw what I added to the DDL file was live on the website. I thought it was super useful to have the queries at the bottom of the QMD because it allowed us to see how we are able to extract information from the DDL/database. I do have to say that the template we were given was what set the path for students because it was clear and working as far as the connection goes. Overall, I liked this assignment more than any of the other ones just because we used SQL, along with the DDL file.</p>
 </section>
 </section>
 

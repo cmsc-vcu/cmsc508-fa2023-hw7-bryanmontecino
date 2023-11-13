@@ -95,7 +95,7 @@ except Exception as e:
 
 The database project is designed to manage and represent the collective skills and roles of employees within a company.
 
-* It aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation and talent management.
+* Aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation.
 * The database consists of the following tables:
 
 skills
@@ -177,14 +177,14 @@ The *people* table is a crucial part of the database, containing detailed inform
 
 It includes various fields to describe personal and professional attributes of the employees. The key elements in this table are:
 
-* id: A unique identifier for each employee.
-* first_name and last_name: The first and last names of the employee.
-* email: The email address of the employee.
-* linkedin_url: A URL linking to the employee's LinkedIn profile.
-* headshot_url: A URL to a headshot image of the employee.
-* discord_handle: The employee's Discord username or handle.
-* brief_bio: A short biography or description of the employee.
-* date_joined: The date when the employee joined the company.
+* id: identifier for each employee.
+* first_name and last_name: first and last names of the employee.
+* email: email address of the employee.
+* linkedin_url: URL linking to the employee's LinkedIn profile.
+* headshot_url: URL to a headshot image of the employee.
+* discord_handle: employee's Discord username or handle.
+* brief_bio: short description of the employee.
+* date_joined: date when the employee joined the company.
 
 Below is a list of data in the *people* table.
 
@@ -211,12 +211,12 @@ The *skills* table is an integral component of the database, cataloging various 
 
 This table is pivotal for tracking and managing the skillset within the organization. It includes fields that provide detailed information about each skill or certification. The key elements in this table are:
 
-* id: A unique identifier for each skill or certification.
-* name: The name of the skill or certification.
-* description: A brief description of the skill or certification, explaining its nature and scope.
-* tag: A category tag that groups the skill into a broader classification.
-* url: A URL pointing to resources or additional information about the skill.
-* time_commitment: An estimated time commitment required to acquire or master the skill.
+* id: unique identifier for each skill.
+* name: name of the skill.
+* description: brief description of the skill or certification, explaining its nature and scope.
+* tag: category tag that labels and classifies each skill.
+* url: URL pointing to resources about the skill.
+* time_commitment: estimated time commitment required to acquire/master the skill.
 
 Below is a list of data in the *skills* table.
 
@@ -241,9 +241,9 @@ df
 
 The *roles* table is a key part of the database, designed to define and organize the various job roles within the company. It plays a crucial role in structuring the company's hierarchy and understanding the distribution of responsibilities. This table includes:
 
-* id: A unique identifier for each role within the company.
-* name: The name of the role, such as Developer, Designer, Team Lead, etc.
-* sort_priority: An integer representing the hierarchical or sorting priority of the role, which can be used to organize roles in a specific order.
+* id: unique identifier for each role within the company.
+* name: name of the role, such as Developer, Designer, Team Lead, etc.
+* sort_priority: integer representing sorting priority of the role, which can be used to organize roles in a specific order.
 
 Below is a list of data in the *roles* table.
 
@@ -296,8 +296,7 @@ df
 #| eval: true
 
 sql = f"""
-SELECT name, tag, description 
-FROM skills 
+SELECT name, tag, description FROM skills 
 ORDER BY name;
 """
 
@@ -357,8 +356,7 @@ df
 #| eval: true
 
 sql = f"""
-SELECT p.first_name, p.last_name 
-FROM people p
+SELECT p.first_name, p.last_name FROM people p
 JOIN peopleskills ps ON p.id = ps.people_id
 JOIN skills s ON ps.skills_id = s.id
 WHERE s.id = 6;
@@ -440,8 +438,7 @@ df
 #| echo: false
 #| eval: true
 sql = """
-SELECT p.first_name, p.last_name, s.name AS skill_name
-FROM people p
+SELECT p.first_name, p.last_name, s.name AS skill_name FROM people p
 JOIN peopleroles pr ON p.id = pr.people_id
 JOIN roles r ON pr.role_id = r.id
 JOIN peopleskills ps ON p.id = ps.people_id
@@ -481,4 +478,4 @@ df
 
 ## Reflection
 
-(Write a paragraph expressing your thoughts, feelings, and insights about your experience with this assignment.  Pause and breath before writing - I'm trying to encourage critical thinking and self-awareness while allowing you to explore the connections between theory and practice. And yes, delete this paragraph.)
+The past assignments we have done have been interesting and thought provoking, but this one is the one that I learned the most from. Once I created tables with the DDL file, it was amazing when I visited the phpMyAdmin website and I saw what I added to the DDL file was live on the website. I thought it was super useful to have the queries at the bottom of the QMD because it allowed us to see how we are able to extract information from the DDL/database. I do have to say that the template we were given was what set the path for students because it was clear and working as far as the connection goes. Overall, I liked this assignment more than any of the other ones just because we used SQL, along with the DDL file.
