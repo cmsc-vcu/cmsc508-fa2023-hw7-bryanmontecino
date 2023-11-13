@@ -93,8 +93,9 @@ except Exception as e:
 
 ## Overview and description
 
-This database project is designed to manage and represent the collective skills, roles, and certifications of employees within a company. It aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation and talent management.
+The database project is designed to manage and represent the collective skills and roles of employees within a company.
 
+* It aims to facilitate the identification of specific skills and roles within the organization, helping in resource allocation and talent management.
 * The database consists of the following tables:
 
 skills
@@ -167,7 +168,8 @@ erDiagram
 
 ## Examples of data in the database
 
-For the people, skills, and roles tables, provide a description of each table and it's contents. Then provide a listing of the entire table.
+For the people, skills, and roles tables, I will provide a description of each table and it's contents.
+- Followign that, I will provide a listing of the entire table.
 
 ### People table
 
@@ -267,10 +269,7 @@ df
 
 Let's explore the database!
 
-# List skill names, tags, and descriptions ordered by name
-
 Sample:
-
 ```{python}
 sql = f"""
 SELECT * FROM people
@@ -278,7 +277,6 @@ SELECT * FROM people
 ```
 
 Result:
-
 ```{python}
 #| echo: false
 #| eval: true
@@ -292,19 +290,17 @@ except Exception as e:
 df
 ```
 
-Query:
+# List skill names, tags, and descriptions ordered by name
 ```{python}
+#| echo: false
+#| eval: true
+
 sql = f"""
 SELECT name, tag, description 
 FROM skills 
 ORDER BY name;
 """
-```
 
-Result:
-```{python}
-#| echo: false
-#| eval: true
 try:
     df = pd.read_sql(sql,cnx)
     df
@@ -356,18 +352,18 @@ df
 ```
 
 ### List people names with Skill 6
-Query:
-```{python}
-sql = f"""
-SELECT name, tag, description FROM skills 
-ORDER BY name;
-"""
-```
-
-Result:
 ```{python}
 #| echo: false
 #| eval: true
+
+sql = f"""
+SELECT p.first_name, p.last_name 
+FROM people p
+JOIN peopleskills ps ON p.id = ps.people_id
+JOIN skills s ON ps.skills_id = s.id
+WHERE s.id = 6;
+"""
+
 try:
     df = pd.read_sql(sql,cnx)
     df
@@ -404,7 +400,7 @@ df
 #| echo: false
 #| eval: true
 sql = """
-SELECT p.first_name, p.last_name, p.emailFROM people p
+SELECT p.first_name, p.last_name, p.email FROM people p
 LEFT JOIN peopleskills ps ON p.id = ps.people_id
 WHERE ps.people_id IS NULL;
 """
